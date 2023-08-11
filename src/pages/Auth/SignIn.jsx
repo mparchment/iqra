@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import AppleLogo from '../../assets/apple-logo.png';
 import GoogleLogo from '../../assets/google-logo.png';
 import BackIcon from '../../assets/back-icon.png';
+import { auth } from '../../firebase-config'
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Wrapper = styled.div`
     display: flex;
@@ -154,10 +156,16 @@ const SignIn = () => {
         navigate('/sign-up');
     };
 
-    const handleSignIn = (e) => {
-        e.preventDefault();
-        setInvalidLogin(true);
-    }
+    const handleSignIn = async (e) => {
+        e.preventDefault();    
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            navigate('/dashboard');
+        } catch (error) {
+            console.log(error.code, error.message);
+        }
+    };
 
     return (
         <Wrapper>

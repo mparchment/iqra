@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import AppleLogo from '../../assets/apple-logo.png';
 import GoogleLogo from '../../assets/google-logo.png';
 import BackIcon from '../../assets/back-icon.png';
+import { auth } from '../../firebase-config'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 
 const Wrapper = styled.div`
     display: flex;
@@ -156,26 +158,34 @@ const SignUp = () => {
     };
 
     const isEmailValid = () => {
-        return email() !== "" && email().indexOf("@") !== -1 && email().indexOf(".") !== -1;
+        return email !== "" && email.indexOf("@") !== -1 && email.indexOf(".") !== -1;
     }
 
     const doPasswordsMatch = () => {
-        return password() === confirmPassword();
+        return password === confirmPassword;
     }
 
-    const handleCreateAccount = () => {
+    const handleCreateAccount = async () => {
         if (!doPasswordsMatch()) {
             setMismatchedPasswords(true);
             setPassword("");
             setConfirmPassword("");
-        } else {
-            setMismatchedPasswords(false);
-        }
-
+            return;
+        } 
+    
         if (!isEmailValid()) {
             setInvalidEmail(true);
+            return;
         }
-    }
+    
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            navigate('/dashboard');
+        } catch (error) {
+            console.log(error.code, error.message);
+        }
+    };
 
     return (
         <Wrapper>
