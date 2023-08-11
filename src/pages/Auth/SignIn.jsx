@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import AppleLogo from '../../assets/apple-logo.png';
 import GoogleLogo from '../../assets/google-logo.png';
 import BackIcon from '../../assets/back-icon.png';
-import { auth } from '../../firebase-config'
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, provider } from '../../firebase-config'
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Wrapper = styled.div`
     display: flex;
@@ -167,6 +167,21 @@ const SignIn = () => {
         }
     };
 
+    const handleGoogleSignUp = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const user = result.user;
+                navigate('/dashboard');
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const email = error.email;
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
+    };
+
     return (
         <Wrapper>
             {/*<IconContainer><Icon src={BackIcon} onClick={handleBackClick}/></IconContainer>*/}
@@ -175,7 +190,7 @@ const SignIn = () => {
             </TextContainer>
     
             <OAuthButtons>
-                <OAuthButton><LogoWrapper src={GoogleLogo}/>Sign in with Google</OAuthButton>
+                <OAuthButton onClick={handleGoogleSignUp}><LogoWrapper src={GoogleLogo}/>Sign in with Google</OAuthButton>
                 <OAuthButton><LogoWrapper src={AppleLogo}/>Sign in with Apple</OAuthButton>
             </OAuthButtons>
     
