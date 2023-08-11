@@ -149,11 +149,11 @@ const SignIn = () => {
     const [invalidLogin, setInvalidLogin] = useState(false);
 
     const handleBackClick = () => {
-        navigate('iqra-client/');
+        navigate('/');
     };
 
     const handleSignUpClick = () => {
-        navigate('iqra-client/sign-up');
+        navigate('/sign-up');
     };
 
     const handleSignIn = async (e) => {
@@ -161,7 +161,7 @@ const SignIn = () => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            navigate('iqra-client/dashboard');
+            navigate('/dashboard');
         } catch (error) {
             console.log(error.code, error.message);
         }
@@ -173,7 +173,7 @@ const SignIn = () => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
                 const user = result.user;
-                navigate('iqra-client/dashboard');
+                navigate('/dashboard');
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;

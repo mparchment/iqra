@@ -16,11 +16,11 @@ function App() {
       <Router>
         <GlobalStyle />
         <Routes>
-          <Route path="iqra-client/" element={<Landing />} />
-          <Route path="iqra-client/sign-in" element={<SignIn />} />
-          <Route path="iqra-client/sign-up" element={<SignUp />} />
-          <Route path="iqra-client/listening" element={<Listening />} />
-          <Route path="iqra-client/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/listening" element={<Listening />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

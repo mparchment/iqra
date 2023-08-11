@@ -20,7 +20,7 @@ export default function Dashboard() {
     const navigate = useNavigate();
 
     const handleListeningClick = () => {
-        navigate('iqra-client/listening');
+        navigate('/listening');
     };
 
     return (
