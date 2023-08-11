@@ -1,0 +1,16 @@
+- `iqra-client`
+  - `public`: Standard directory for public assets and the main HTML page.
+  - `src`: All the source code for your application.
+    - `assets`: For static assets like images, sound files, and general CSS.
+    - `components`: Reusable React components organized by their function.
+      - `common`: For general components like buttons, modals, and other UI elements.
+      - `auth`: Components related to authentication like login and registration forms.
+      - `dashboard`: Components that will be used within the dashboard.
+    - `contexts`: For React context providers if you're using the context API for state management.
+    - `hooks`: Custom React hooks.
+    - `services`: Services for interacting with the backend or other third-party services.
+    - `utils`: Utility functions and constants.
+    - `pages`: Top-level page components.
+  - `package.json`
+  - `.gitignore`
+  - `README.md`
