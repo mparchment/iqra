@@ -6,11 +6,14 @@ const Button = styled.button`
     letter-spacing: .5px;
     text-transform: uppercase;
     border-radius: 10px;
-    padding: 12px 50px;
+    padding: 12px 25px;
     cursor: pointer;
     font-size: 15px;
     font-weight: 800;
     font-family: inherit;
+
+    height: 40px;
+    white-space: nowrap;
 
     background-color: #fc1303;
     color: white;

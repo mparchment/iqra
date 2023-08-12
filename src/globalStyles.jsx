@@ -110,7 +110,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    max-width: 414px;
     margin: 0 auto;
     font-family: 'Museo', sans-serif;
   }

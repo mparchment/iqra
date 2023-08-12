@@ -14,6 +14,8 @@ const Wrapper = styled.div`
     align-items: center;
     height: 100vh;
     width: 100%;
+    max-width: 414px; // Remove later when desktop version is implemented.
+    margin: 0 auto;
 `;
 
 const Buttons = styled.div`

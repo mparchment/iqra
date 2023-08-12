@@ -1,11 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const LogoWrapper = styled.div`
     text-align: center;
     color: var(--primary);
-    margin-top: .5rem;
-    width: 100%;
 `;
 
 const LogoText = styled.h1`

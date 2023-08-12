@@ -15,11 +15,13 @@ const LogoContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-grow: 0.1;
+    margin-top: .5rem
 `;
 
 const MainText = styled.div`
     flex-grow: 1;
     width: 80%;
+    max-width: 414px; // Remove later when desktop version is implemented.
     text-align: center;
     font-size: 1.5rem;
     font-weight: 800;
