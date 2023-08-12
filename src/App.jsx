@@ -6,6 +6,8 @@ import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Landing from './pages/Landing';
 import Listening from './pages/Drills/Listening';
+import Stories from './pages/Stories';
+import Review from './pages/Review';
 
 import GlobalStyle from './globalStyles';
 import { UserProvider } from './contexts/UserProvider';
@@ -21,6 +23,8 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/listening" element={<Listening />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/stories" element={<Stories />} />
+          <Route path="/review" element={<Review />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

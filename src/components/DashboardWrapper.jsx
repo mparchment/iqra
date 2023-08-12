@@ -67,7 +67,13 @@ export default function DashboardWrapper({ currentPage, children }) {
         navigate('/dashboard')
     }
 
-    console.log(currentPage)
+    const handleStoriesClick = () => {
+        navigate('/stories')
+    }
+
+    const handleReviewClick = () => {
+        navigate('/review')
+    }
 
     return (
         <Wrapper>
@@ -77,9 +83,9 @@ export default function DashboardWrapper({ currentPage, children }) {
                 </LogoWrapper>
                 <Navbar>
                     <NavbarItem onClick={handleLearnClick} isActive={currentPage === 'learn'}>Learn</NavbarItem>
-                    <NavbarItem isActive={currentPage === 'stories'}>Stories</NavbarItem>
-                    <NavbarItem isActive={currentPage === 'discuss'}>Discuss</NavbarItem>
-                    <NavbarItem isActive={currentPage === 'shop'}>Shop</NavbarItem>
+                    <NavbarItem onClick={handleStoriesClick} isActive={currentPage === 'stories'}>Stories</NavbarItem>
+                    <NavbarItem onClick={handleReviewClick} isActive={currentPage === 'review'}>Review</NavbarItem>
+                    <NavbarItem isActive={currentPage === 'shop'}>Dialogue</NavbarItem>
                     <NavbarItem isActive={currentPage === 'more'}>More</NavbarItem>
                 </Navbar>
                 <LogoWrapper>
