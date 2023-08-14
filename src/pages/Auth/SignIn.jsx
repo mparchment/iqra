@@ -15,7 +15,7 @@ const Wrapper = styled.div`
     height: 100vh;
     width: 100%;
     max-width: 414px; // Remove later when desktop version is implemented.
-    margin: 0 auto;
+    margin: 0 auto; // Remove later when desktop version is implemented.
 `;
 
 const Buttons = styled.div`
