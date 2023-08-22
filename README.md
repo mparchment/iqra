@@ -1,5 +1,5 @@
 # Directory
-- `iqra-client`
+- `iqra`
   - `public`: Standard directory for public assets and the main HTML page.
   - `src`: All the source code for your application.
     - `assets`: For static assets like images, sound files, and general CSS.
