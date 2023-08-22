@@ -8,15 +8,16 @@ import Landing from './pages/Landing';
 import Listening from './pages/Drills/Listening';
 import Stories from './pages/Stories';
 import Review from './pages/Review';
+import Sarf from './pages/Drills/Sarf';
 
 import GlobalStyle from './globalStyles';
 import { UserProvider } from './contexts/UserProvider';
 
 function App() {
   return (
-    <UserProvider>
       <Router>
         <GlobalStyle />
+        <UserProvider>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/sign-in" element={<SignIn />} />
@@ -25,10 +26,11 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/stories" element={<Stories />} />
           <Route path="/review" element={<Review />} />
+          <Route path="/sarf" element={<Sarf />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </UserProvider>
       </Router>
-    </UserProvider>
   );
 }
 

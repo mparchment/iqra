@@ -60,6 +60,10 @@ const Content = styled.div`
     text-align: left;
 `;
 
+const Subpage = styled.div`
+    margin: 2rem;
+`;
+
 export default function DashboardWrapper({ currentPage, children }) {
     const navigate = useNavigate();
 
@@ -85,15 +89,13 @@ export default function DashboardWrapper({ currentPage, children }) {
                     <NavbarItem onClick={handleLearnClick} isActive={currentPage === 'learn'}>Learn</NavbarItem>
                     <NavbarItem onClick={handleStoriesClick} isActive={currentPage === 'stories'}>Stories</NavbarItem>
                     <NavbarItem onClick={handleReviewClick} isActive={currentPage === 'review'}>Review</NavbarItem>
-                    <NavbarItem isActive={currentPage === 'shop'}>Dialogue</NavbarItem>
-                    <NavbarItem isActive={currentPage === 'more'}>More</NavbarItem>
                 </Navbar>
                 <LogoWrapper>
                     <SignOutButton/>
                 </LogoWrapper>
             </Header>
             <Content>
-                {children}
+                <Subpage>{children}</Subpage>
             </Content>
         </Wrapper>
     );
