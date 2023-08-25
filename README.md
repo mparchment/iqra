@@ -1,5 +1,5 @@
 # Directory
-- `iqra-client`
+- `iqra`
   - `public`: Standard directory for public assets and the main HTML page.
   - `src`: All the source code for your application.
     - `assets`: For static assets like images, sound files, and general CSS.
@@ -53,3 +53,22 @@
 - **Chapter 24:** Complex Nouns
 - **Chapter 25:** Complex Descriptors
 - **Chapter 26:** The Emphasizer مِنْ
+
+# Tasks
+
+- [ ] **Website and Application Structure**
+  - [ ] Complete website and router scaffolding.
+
+- [ ] **Learning Experience & Curriculum**
+  - [ ] Replicate the 1st year of Qalam learning experience.
+    - [ ] Teach the Arabic alphabet.
+    - [ ] Cover all No-Nonsense topics.
+    - [ ] Delve into sarf and sarf tables following foundation.
+  - [ ] Draw inspiration from Reading Eggs.
+  - [ ] Implement exercises and parallel reading for Qasas al-Nabiyyin.
+  - [ ] Implement sarf exercise review drill.
+
+- [ ] **Extensions and Integrations**
+  - [ ] Investigate the Yomichan extension for Arabic.
+    - [ ] Draw inspiration from Apple’s lookup dictionary for Arabic.
+  - [ ] Implement Hans-Wehr lookup dictionary.

@@ -1,6 +1,6 @@
 {
-  "name": "iqra-client",
-  "homepage": "https://mparchment.github.io/iqra-client",
+  "name": "iqra",
+  "homepage": "https://mparchment.github.io/iqra",
   "private": true,
   "version": "0.0.0",
   "type": "module",

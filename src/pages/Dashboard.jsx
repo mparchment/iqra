@@ -4,10 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import DashboardWrapper from '../components/DashboardWrapper';
 import styled from 'styled-components';
 
-const ModuleWrapper = styled.div`
-    margin: 2rem 0;
-`;
-
 const ModuleTitle = styled.h2`
     font-weight: bold;
     color: white;
@@ -109,17 +105,12 @@ const completedChapters = [1, 2, 3]; // Example of chapters that are completed
 
 export default function Dashboard() {
     const user = useContext(UserContext);
-    const navigate = useNavigate();
-
-    const handleListeningClick = () => {
-        navigate('/listening');
-    };
 
     return (
         <DashboardWrapper currentPage='learn'>
             <Modules>
                 {data.map((module, index) => (
-                    <ModuleWrapper key={index}>
+                    <div key={index}>
                         <ModuleTitleWrapper><ModuleTitle>{module.title}</ModuleTitle></ModuleTitleWrapper>
                         <ChapterList>
                             {module.chapters.map((chapter) => (
@@ -131,7 +122,7 @@ export default function Dashboard() {
                                 </ChapterItem>
                             ))}
                         </ChapterList>
-                    </ModuleWrapper>
+                    </div>
                 ))}
             </Modules>
         </DashboardWrapper>
