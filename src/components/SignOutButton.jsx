@@ -33,7 +33,7 @@ const SignOutButton = () => {
     const handleSignOut = async () => {
         try {
             await auth.signOut();
-                navigate ('/');
+                navigate ('/iqra');
         } catch (error) {
             console.error("Error signing out:", error);
         }
