@@ -26,7 +26,7 @@ const abwabRules = {
     },
     "sami3a": {
         "madin": FATHA,
-        "mudari3": FATHA,
+        "mudari3": KASRA,
     },
     "hasiba": {
         "madin": FATHA,

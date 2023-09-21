@@ -10,6 +10,10 @@ const Wrapper = styled.div`
     height: 100%;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 768px) {
+        gap: 10px;
+    }
 `;
 
 const Title = styled.div`
@@ -17,11 +21,16 @@ const Title = styled.div`
 `;
 
 const CommonDiv = styled.div`
-    width: 50%;
     margin: 0 auto;
     border-radius: 5px;
     border: 1px solid #dddddd;
-    min-height: 8.75rem;
+    min-height: 12rem;
+    width: 80%;
+
+    @media (max-width: 768px) {
+        min-height: 8rem;
+        width: 90%;
+    }
 `;
 
 const Settings = styled.div`
@@ -41,16 +50,23 @@ const TopDiv = styled.div`
     padding-right: 0;
 `;
 
-const QuestionContent = styled.div`
+const Content = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: center;
+    text-align: center;
     font-size: 3.5rem;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px;
 
     gap: 15px;
+    font-family: 'Noto Sans Arabic';
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+        padding: 10px;
+        gap: 10px;
+    }
 `;
 
 const Buttons = styled.div`
@@ -59,6 +75,7 @@ const Buttons = styled.div`
     align-items: center;
     gap: 25px;
     margin-top: 15px;
+    width: 90%;
 `;
 
 const Button = styled.button`
@@ -79,6 +96,11 @@ const Button = styled.button`
     &:active {
         transform: scale(0.98);
         box-shadow: 0px 1px 0px var(--primary-shadow);
+    }
+
+    @media (max-width: 768px) {
+        padding: 8px 30px;
+        font-size: 12px;
     }
 `;
 
@@ -162,11 +184,21 @@ export default function Sarf() {
         const randomIndex = Math.floor(Math.random() * wordBank.length);
         const [randomWordArabic, randomWordTranslit] = wordBank[randomIndex];
     
-        const randomVerbTense = verbTenses[Math.floor(Math.random() * verbTenses.length)];
-        const randomVoice = voices[Math.floor(Math.random() * voices.length)];
-        const randomPerson = persons[Math.floor(Math.random() * persons.length)];
-        const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
-        const randomGender = genders[Math.floor(Math.random() * genders.length)];
+        let randomVerbTense = verbTenses[Math.floor(Math.random() * verbTenses.length)];
+        let randomVoice = voices[Math.floor(Math.random() * voices.length)];
+        let randomPerson = persons[Math.floor(Math.random() * persons.length)];
+        let randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
+        let randomGender = genders[Math.floor(Math.random() * genders.length)];
+
+        while (
+            (randomPerson === 'mutakallim' && randomNumber === 'thaniya') ||
+            (randomPerson === 'mutakallim' && randomVoice === 'majhul') ||
+            (randomPerson === 'mutakallim' && randomPerson === 'ghaib')
+        ) {
+            randomPerson = persons[Math.floor(Math.random() * persons.length)];
+            randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
+            randomVoice = voices[Math.floor(Math.random() * voices.length)];
+        }
     
         const testVerb = new ArabicVerb(randomWordArabic, randomWordTranslit);
         const answer = testVerb.placeHarakat("I", randomVerbTense, randomVoice, randomNumber, randomPerson, randomGender);
@@ -185,21 +217,21 @@ export default function Sarf() {
             <Wrapper>
                 <CommonDiv>
                     <TopDiv>Root</TopDiv>
-                    <QuestionContent>
+                    <Content>
                         {currentQuestion.word}
-                    </QuestionContent>
+                    </Content>
                 </CommonDiv>
                 <CommonDiv>
                     <TopDiv>Sigha</TopDiv>
-                    <QuestionContent>
+                    <Content>
                         <QuestionSigha>{currentQuestion.sigha}</QuestionSigha>
-                    </QuestionContent>
+                    </Content>
                 </CommonDiv>
                 <CommonDiv>
                     <TopDiv>Answer</TopDiv>
-                    <QuestionContent>
+                    <Content>
                         {showAnswerState && currentQuestion.answer}
-                    </QuestionContent>
+                    </Content>
                 </CommonDiv>
                 {/*<Settings>
                     <TopDiv>Settings</TopDiv>
