@@ -70,15 +70,15 @@ export default function DashboardWrapper({ currentPage, children }) {
     const navigate = useNavigate();
 
     const handleLearnClick = () => {
-        navigate('/dashboard')
+        navigate('/iqra/dashboard')
     }
 
     const handleStoriesClick = () => {
-        navigate('/stories')
+        navigate('/iqra/stories')
     }
 
     const handleReviewClick = () => {
-        navigate('/review')
+        navigate('/iqra/review')
     }
 
     return (

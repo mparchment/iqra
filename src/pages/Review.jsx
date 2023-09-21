@@ -12,8 +12,8 @@ export default function Review() {
     return (
         <DashboardWrapper currentPage='review'>
             <Subpage>
-                <Link to='/sarf'>Sarf</Link>
-                <Link to='/dashboard'>Dashboard</Link>
+                <Link to='/iqra/sarf'>Sarf</Link>
+                <Link to='/iqra/dashboard'>Dashboard</Link>
             </Subpage>
         </DashboardWrapper>
     )

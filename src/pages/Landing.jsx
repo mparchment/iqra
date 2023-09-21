@@ -79,11 +79,11 @@ export default function Landing() {
     const navigate = useNavigate();
 
     const handleRegisterClick = () => {
-        navigate('/sign-up');
+        navigate('/iqra/sign-up');
     };
 
     const handleLoginClick = () => {
-        navigate('/sign-in');
+        navigate('/iqra/sign-in');
     };
 
     return (

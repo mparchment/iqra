@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import SignIn from './pages/Auth/SignIn';
 import SignUp from './pages/Auth/SignUp';
@@ -19,14 +19,14 @@ function App() {
         <GlobalStyle />
         <UserProvider>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/listening" element={<Listening />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/stories" element={<Stories />} />
-          <Route path="/review" element={<Review />} />
-          <Route path="/sarf" element={<Sarf />} />
+          <Route path="/iqra" element={<Landing />} />
+          <Route path="/iqra/sign-in" element={<SignIn />} />
+          <Route path="/iqra/sign-up" element={<SignUp />} />
+          <Route path="/iqra/listening" element={<Listening />} />
+          <Route path="/iqra/dashboard" element={<Dashboard />} />
+          <Route path="/iqra/stories" element={<Stories />} />
+          <Route path="/iqra/review" element={<Review />} />
+          <Route path="/iqra/sarf" element={<Sarf />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         </UserProvider>
