@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-// import Logo from '../components/Logo/Logo';
 import AppleLogo from '../../assets/apple-logo.png';
 import GoogleLogo from '../../assets/google-logo.png';
 import BackIcon from '../../assets/back-icon.png';
 import { auth, provider } from '../../firebase-config'
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Wrapper = styled.div`
     display: flex;
@@ -14,7 +13,7 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
-
+    width: 100%;
     max-width: 414px; // Remove later when desktop version is implemented.
     margin: 0 auto; // Remove later when desktop version is implemented.
 `;
@@ -111,20 +110,16 @@ const OAuthButton = styled(Button)`
     padding-left: 20px;
 `;
 
-const LogoContainer = styled.img`
+const LogoWrapper = styled.img`
     width: 20px;
     margin-right: 30px;
-`;
-
-const SignInText = styled.span`
-    padding-top: 1rem;
-    font-size: 14px;
 `;
 
 const FormError = styled.span`
     color: red;
     font-size: 14px;
-    margin-bottom: .33rem;
+    margin-bottom: .7rem;
+    margin-top: .33rem;
 `;
 
 const SignInLink = styled.a`
@@ -149,38 +144,22 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [mismatchedPasswords, setMismatchedPasswords] = useState(false);
-    const [invalidEmail, setInvalidEmail] = useState(false);
-
-    const handleSignInLink = () => {
-        navigate('/iqra/sign-in');
-    }
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
 
     const handleBackClick = () => {
         navigate('/iqra/');
     };
 
-    const isEmailValid = () => {
-        return email !== "" && email.indexOf("@") !== -1 && email.indexOf(".") !== -1;
-    }
+    const handleSignInClick = () => {
+        navigate('/iqra/sign-in');
+    };
 
-    const doPasswordsMatch = () => {
-        return password === confirmPassword;
-    }
-
-    const handleCreateAccount = async () => {
-        if (!doPasswordsMatch()) {
-            setMismatchedPasswords(true);
-            setPassword("");
-            setConfirmPassword("");
-            return;
-        } 
-    
-        if (!isEmailValid()) {
-            setInvalidEmail(true);
+    const handleCreateAccount = async (e) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            setPasswordsMatch(false);
             return;
         }
-    
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -212,14 +191,14 @@ const SignUp = () => {
                 <h1>Welcome!</h1>
                 <h3>Please, create an account.</h3>
             </TextContainer>
-    
+
             <OAuthButtons>
-                <OAuthButton onClick={handleGoogleSignUp}><LogoContainer src={GoogleLogo}/>Sign up with Google</OAuthButton>
-                <OAuthButton><LogoContainer src={AppleLogo}/>Sign up with Apple</OAuthButton>
+                <OAuthButton onClick={handleGoogleSignUp}><LogoWrapper src={GoogleLogo}/>Sign up with Google</OAuthButton>
+                {/*<OAuthButton><LogoWrapper src={AppleLogo}/>Sign up with Apple</OAuthButton>*/}
             </OAuthButtons>
-    
+
             <Divider/>
-    
+
             <FormContainer>
                 <Form onSubmit={handleCreateAccount}>
                     <Input 
@@ -240,15 +219,15 @@ const SignUp = () => {
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
                     />
-                    {invalidEmail && <FormError>Invalid email.</FormError>}
-                    {mismatchedPasswords && <FormError>Passwords do not match.</FormError>}
+                    {!passwordsMatch && <FormError>Passwords do not match.</FormError>}
+                    <SignUpButton type="submit">Sign Up</SignUpButton>
                 </Form>
             </FormContainer>
             <Buttons>
-                <SignInText>Already have an account? <SignInLink onClick={handleSignInLink}>Sign in</SignInLink>.</SignInText>
-                <SignUpButton onClick={handleCreateAccount}>Create Account</SignUpButton> 
+                <SignInLink>Already have an account? <SignInLink onClick={handleSignInClick}>Sign in</SignInLink>.</SignInLink>
             </Buttons>
         </Wrapper>
     )
-}
+};
+
 export default SignUp;

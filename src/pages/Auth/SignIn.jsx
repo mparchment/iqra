@@ -190,14 +190,14 @@ const SignIn = () => {
             <TextContainer>
                 <h1>Welcome back!</h1>
             </TextContainer>
-    
+
             <OAuthButtons>
                 <OAuthButton onClick={handleGoogleSignUp}><LogoWrapper src={GoogleLogo}/>Sign in with Google</OAuthButton>
-                <OAuthButton><LogoWrapper src={AppleLogo}/>Sign in with Apple</OAuthButton>
+                {/*<OAuthButton><LogoWrapper src={AppleLogo}/>Sign in with Apple</OAuthButton>*/}
             </OAuthButtons>
-    
+
             <Divider/>
-    
+
             <FormContainer>
                 <Form onSubmit={handleSignIn}>
                     <Input 
@@ -213,11 +213,11 @@ const SignIn = () => {
                         onChange={e => setPassword(e.target.value)}
                     />
                     {invalidLogin && <FormError>Invalid email or password.</FormError>}
+                    <SignInButton type="submit">Sign In</SignInButton>
                 </Form>
             </FormContainer>
             <Buttons>
                 <SignInText>Don't have an account? <SignUpLink onClick={handleSignUpClick}>Sign up</SignUpLink>.</SignInText>
-                <SignInButton onClick={handleSignIn}>Sign In</SignInButton> 
             </Buttons>
         </Wrapper>
     )
