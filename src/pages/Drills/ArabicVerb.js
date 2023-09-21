@@ -41,7 +41,7 @@ const abwabRules = {
 const extractRoot = (verb) => {
     return verb.split("");
 }
-class ArabicVerb {
+export class ArabicVerb {
     constructor(root, bab) {
         this.root = extractRoot(root);
         this.bab = bab;
@@ -73,7 +73,7 @@ class ArabicVerb {
                     }
                     else if (number === "thaniya") {
                         if (person === "hadir") {
-                            word = this.root[0] + FATHA + this.root[1] + HARAKA + this.root[2] + SUKUN + TA + DAMMA + MEEM + FATHA;
+                            word = this.root[0] + FATHA + this.root[1] + HARAKA + this.root[2] + SUKUN + TA + DAMMA + MEEM + ALIF;
                         } else if (person === "ghaib") {
                             if (gender === "mudhakkar") {
                                 word = this.root[0] + FATHA + this.root[1] + HARAKA + this.root[2] + FATHA + ALIF;
@@ -120,7 +120,7 @@ class ArabicVerb {
                     }
                     else if (number === "thaniya") {
                         if (person === "hadir") {
-                            word = this.root[0] + DAMMA + this.root[1] + KASRA + this.root[2] + SUKUN + TA + FATHA + DAMMA + MEEM + FATHA;
+                            word = this.root[0] + DAMMA + this.root[1] + KASRA + this.root[2] + SUKUN + TA + DAMMA + MEEM + ALIF;
                         } else if (person === "ghaib") {
                             if (gender === "mudhakkar") {
                                 word = this.root[0] + DAMMA + this.root[1] + KASRA + this.root[2] + FATHA + ALIF;
@@ -253,7 +253,7 @@ class ArabicVerb {
         }
 
         // ... (other cases for form)
-        return ("WORD:" + word);
+        return word;
     }
 }
 

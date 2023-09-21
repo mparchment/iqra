@@ -57,11 +57,13 @@ const LogoWrapper = styled.div`
 const Content = styled.div`
     flex: 1;
     width: 100%;
+    height: 100%;
     text-align: left;
 `;
 
 const Subpage = styled.div`
     margin: 2rem;
+    height: 92.5%;
 `;
 
 export default function DashboardWrapper({ currentPage, children }) {

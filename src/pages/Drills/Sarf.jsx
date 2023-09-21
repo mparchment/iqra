@@ -1,31 +1,27 @@
 import { useState, useEffect } from 'react';
 import DashboardWrapper from '../../components/DashboardWrapper';
 import styled from 'styled-components';
+import { ArabicVerb } from './ArabicVerb'
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 15px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 `;
 
 const Title = styled.div`
     text-align: center;
 `;
 
-const Question = styled.div`
-    width: 85%;
-    height: 100px;
+const CommonDiv = styled.div`
+    width: 50%;
     margin: 0 auto;
     border-radius: 5px;
     border: 1px solid #dddddd;
-`;
-
-const Answer = styled.div`
-    width: 85%;
-    height: 100px;
-    margin: 0 auto;
-    border-radius: 5px;
-    border: 1px solid #dddddd;
+    min-height: 8.75rem;
 `;
 
 const Settings = styled.div`
@@ -37,11 +33,10 @@ const Settings = styled.div`
 `;
 
 const TopDiv = styled.div`
-    width: 100%;
-    border-radius: 5px;
-    background-color: #f5f5f5;
+    border-radius-top: 5px;
     padding: 10px;
     padding-left: 15px;
+    background-color: #f5f5f5;
     border-bottom: 1px solid #dddddd;
     padding-right: 0;
 `;
@@ -51,8 +46,9 @@ const QuestionContent = styled.div`
     justify-content: center;
     flex-direction: row;
     align-items: center;
-    height: 55%;
-    font-size: 1.5rem;
+    font-size: 3.5rem;
+    padding-top: 15px;
+    padding-bottom: 15px;
 
     gap: 15px;
 `;
@@ -62,6 +58,7 @@ const Buttons = styled.div`
     justify-content: center;
     align-items: center;
     gap: 25px;
+    margin-top: 15px;
 `;
 
 const Button = styled.button`
@@ -119,24 +116,15 @@ export default function Sarf() {
 
     // State for the current question and answer
     const [currentQuestion, setCurrentQuestion] = useState({
-        sigha: 'مَعْلُوم ماضٍ جَمْع غَائِب مُدَّكَر',
-        word: 'نَصَرَ',
-        answer: 'نَصَرُوا'
+        sigha: '',
+        word: '',
+        answer: ''
     });
     const [showAnswerState, setShowAnswerState] = useState(false);
 
-
-    // State for settings
-    const [settings, setSettings] = useState({
-        verbTense: 'ماضٍ', // Past tense by default
-        questionType: 'Details to Conjugation' // Default question type
-    });
-
-    // Function to show the answer
     const showAnswer = () => {
         setShowAnswerState(true);
     };
-
 
     const nextQuestion = () => {
         const newQuestion = generateRandomQuestion();
@@ -144,73 +132,75 @@ export default function Sarf() {
         setShowAnswerState(false); // Hide the answer for the next question
     };
 
-    // Initialize the first question when the component mounts
     useEffect(() => {
         const initialQuestion = generateRandomQuestion();
         setCurrentQuestion(initialQuestion);
     }, []);
 
-
-    // Function to update settings
-    const updateSettings = (key, value) => {
-        setSettings({
-            ...settings,
-            [key]: value
-        });
-    };
-
-    const removeAlifLaamAndHarakat = (text) => {
-        return text.replace(/الْ|ُ|َ|ِ|ْ/g, '');
-    };
-
     const generateRandomQuestion = () => {
-        const verbTenses = ['الْمَاضِي', 'الْمُضَارِع'];
-        const persons = ['الْمُتَكَلِّم', 'الْمُخَاطَب', 'الْغَائِب'];
-        const numbers = ['الْمُفْرَد', 'الْمُثَنَّى', 'الْجَمْع'];
-        const genders = ['مذكر', 'مؤنث'];
-      
+        const wordBank = [
+            ['ضرب', 'daraba'],
+            ['فتح', 'fataha'],
+            ['كرم', 'karuma'],
+            ['سمع', 'sami3a'],
+            ['حسب', 'hasiba'],
+            ['فعل', 'fataha']
+        ]
+
+        const verbTenses = ['madin', 'mudari3'];
+        const voices = ['ma3ruf', 'majhul'];
+        const persons = ['mutakallim', 'hadir', 'ghaib'];
+        const numbers = ['wahid', 'thaniya', 'jama3'];
+        const genders = ['mudhakkar', 'mu3annath'];
+    
+        const verbTensesArabic = { 'madin': 'ماضٍ', 'mudari3': 'مضارع' };
+        const voicesArabic = { 'ma3ruf': 'مَعْلُوم', 'majhul': 'مَجْهُول' };
+        const personsArabic = { 'mutakallim': 'مُتَكَلِّم', 'hadir': 'حاضِر', 'ghaib': 'غائِب' };
+        const numbersArabic = { 'wahid': 'واحِد', 'thaniya': 'ثنية', 'jama3': 'جَمْع' };
+        const gendersArabic = { 'mudhakkar': 'مُذَكَّر', 'mu3annath': 'مُؤَنَّث' };
+    
+        const randomIndex = Math.floor(Math.random() * wordBank.length);
+        const [randomWordArabic, randomWordTranslit] = wordBank[randomIndex];
+    
         const randomVerbTense = verbTenses[Math.floor(Math.random() * verbTenses.length)];
+        const randomVoice = voices[Math.floor(Math.random() * voices.length)];
         const randomPerson = persons[Math.floor(Math.random() * persons.length)];
         const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
         const randomGender = genders[Math.floor(Math.random() * genders.length)];
-      
-        // Map the gender back to 'm' or 'f' for lookup in the conjugations object
-        const genderKey = randomGender === 'مذكر' ? 'm' : 'f';
-      
-        const answer = conjugations[randomVerbTense][randomPerson][randomNumber][genderKey];
-      
-        return {
-            sigha: `${removeAlifLaamAndHarakat(randomVerbTense)} ${removeAlifLaamAndHarakat(randomNumber)} ${removeAlifLaamAndHarakat(randomPerson)} ${removeAlifLaamAndHarakat(randomGender)}`,
-            word: 'نَصَرَ', // This would be a random verb root
-            answer: answer // This would be the correct conjugation
-        };
-    };
-
     
-      
-
-    const getConjugation = (verbTense, person, number, gender) => {
-        return conjugations[verbTense][person][number][gender];
+        const testVerb = new ArabicVerb(randomWordArabic, randomWordTranslit);
+        const answer = testVerb.placeHarakat("I", randomVerbTense, randomVoice, randomNumber, randomPerson, randomGender);
+    
+        const sighaArabic = `${voicesArabic[randomVoice]} ${verbTensesArabic[randomVerbTense]} ${numbersArabic[randomNumber]} ${personsArabic[randomPerson]} ${gendersArabic[randomGender]}`;
+    
+        return {
+            sigha: sighaArabic,
+            word: randomWordArabic,
+            answer: answer
+        };
     };
 
     return (
         <DashboardWrapper currentPage='review'>
-            <Title><h1>Sarf</h1></Title>
             <Wrapper>
-                <Question>
-                    <TopDiv>Question</TopDiv>
+                <CommonDiv>
+                    <TopDiv>Root</TopDiv>
+                    <QuestionContent>
+                        {currentQuestion.word}
+                    </QuestionContent>
+                </CommonDiv>
+                <CommonDiv>
+                    <TopDiv>Sigha</TopDiv>
                     <QuestionContent>
                         <QuestionSigha>{currentQuestion.sigha}</QuestionSigha>
-                        <QuestionArrow>←</QuestionArrow>
-                        <QuestionWord>{currentQuestion.word}</QuestionWord>
                     </QuestionContent>
-                </Question>
-                <Answer>
+                </CommonDiv>
+                <CommonDiv>
                     <TopDiv>Answer</TopDiv>
                     <QuestionContent>
                         {showAnswerState && currentQuestion.answer}
                     </QuestionContent>
-                </Answer>
+                </CommonDiv>
                 {/*<Settings>
                     <TopDiv>Settings</TopDiv>
                     <SettingsContent>
