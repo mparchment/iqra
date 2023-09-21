@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import DashboardWrapper from '../../components/DashboardWrapper';
 import styled from 'styled-components';
 
@@ -115,6 +116,83 @@ const SettingsSubtitle = styled.h5`
 `;
 
 export default function Sarf() {
+
+    // State for the current question and answer
+    const [currentQuestion, setCurrentQuestion] = useState({
+        sigha: 'مَعْلُوم ماضٍ جَمْع غَائِب مُدَّكَر',
+        word: 'نَصَرَ',
+        answer: 'نَصَرُوا'
+    });
+    const [showAnswerState, setShowAnswerState] = useState(false);
+
+
+    // State for settings
+    const [settings, setSettings] = useState({
+        verbTense: 'ماضٍ', // Past tense by default
+        questionType: 'Details to Conjugation' // Default question type
+    });
+
+    // Function to show the answer
+    const showAnswer = () => {
+        setShowAnswerState(true);
+    };
+
+
+    const nextQuestion = () => {
+        const newQuestion = generateRandomQuestion();
+        setCurrentQuestion(newQuestion);
+        setShowAnswerState(false); // Hide the answer for the next question
+    };
+
+    // Initialize the first question when the component mounts
+    useEffect(() => {
+        const initialQuestion = generateRandomQuestion();
+        setCurrentQuestion(initialQuestion);
+    }, []);
+
+
+    // Function to update settings
+    const updateSettings = (key, value) => {
+        setSettings({
+            ...settings,
+            [key]: value
+        });
+    };
+
+    const removeAlifLaamAndHarakat = (text) => {
+        return text.replace(/الْ|ُ|َ|ِ|ْ/g, '');
+    };
+
+    const generateRandomQuestion = () => {
+        const verbTenses = ['الْمَاضِي', 'الْمُضَارِع'];
+        const persons = ['الْمُتَكَلِّم', 'الْمُخَاطَب', 'الْغَائِب'];
+        const numbers = ['الْمُفْرَد', 'الْمُثَنَّى', 'الْجَمْع'];
+        const genders = ['مذكر', 'مؤنث'];
+      
+        const randomVerbTense = verbTenses[Math.floor(Math.random() * verbTenses.length)];
+        const randomPerson = persons[Math.floor(Math.random() * persons.length)];
+        const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
+        const randomGender = genders[Math.floor(Math.random() * genders.length)];
+      
+        // Map the gender back to 'm' or 'f' for lookup in the conjugations object
+        const genderKey = randomGender === 'مذكر' ? 'm' : 'f';
+      
+        const answer = conjugations[randomVerbTense][randomPerson][randomNumber][genderKey];
+      
+        return {
+            sigha: `${removeAlifLaamAndHarakat(randomVerbTense)} ${removeAlifLaamAndHarakat(randomNumber)} ${removeAlifLaamAndHarakat(randomPerson)} ${removeAlifLaamAndHarakat(randomGender)}`,
+            word: 'نَصَرَ', // This would be a random verb root
+            answer: answer // This would be the correct conjugation
+        };
+    };
+
+    
+      
+
+    const getConjugation = (verbTense, person, number, gender) => {
+        return conjugations[verbTense][person][number][gender];
+    };
+
     return (
         <DashboardWrapper currentPage='review'>
             <Title><h1>Sarf</h1></Title>
@@ -122,29 +200,42 @@ export default function Sarf() {
                 <Question>
                     <TopDiv>Question</TopDiv>
                     <QuestionContent>
-                        <QuestionSigha>مَعْلُوم ماضٍ جَمْع غَائِب مُدَّكَر</QuestionSigha>
+                        <QuestionSigha>{currentQuestion.sigha}</QuestionSigha>
                         <QuestionArrow>←</QuestionArrow>
-                        <QuestionWord>نَصَرَ</QuestionWord>
+                        <QuestionWord>{currentQuestion.word}</QuestionWord>
                     </QuestionContent>
                 </Question>
-                <Answer><TopDiv>Answer</TopDiv>
-                    <QuestionContent>نَصَرُوا</QuestionContent>
+                <Answer>
+                    <TopDiv>Answer</TopDiv>
+                    <QuestionContent>
+                        {showAnswerState && currentQuestion.answer}
+                    </QuestionContent>
                 </Answer>
-                <Settings>
+                {/*<Settings>
                     <TopDiv>Settings</TopDiv>
                     <SettingsContent>
                         <SettingsDiv>
                             <SettingsSubtitle>Verb Tense:</SettingsSubtitle>
                             <ul>
-                                <li>ماضٍ</li>
-                                <li>مضارع</li>
+                                <li onClick={() => updateSettings('verbTense', 'Past tense')}>Past tense</li>
+                                <li onClick={() => updateSettings('verbTense', 'Present/Future Tense')}>Present/Future Tense</li>
+                                <li onClick={() => updateSettings('verbTense', 'Both')}>Both</li>
+                            </ul>
+                        </SettingsDiv>
+                        <SettingsDiv>
+                            <SettingsSubtitle>Question Type:</SettingsSubtitle>
+                            <ul>
+                                <li onClick={() => updateSettings('questionType', 'Details to Conjugation')}>Details to Conjugation</li>
+                                <li onClick={() => updateSettings('questionType', 'Conjugation to Details')}>Conjugation to Details</li>
+                                <li onClick={() => updateSettings('questionType', 'Past to Present/Future')}>Past to Present/Future</li>
+                                <li onClick={() => updateSettings('questionType', 'Present/Future to Past')}>Present/Future to Past</li>
                             </ul>
                         </SettingsDiv>
                     </SettingsContent>
-                </Settings>
+                </Settings>*/}
                 <Buttons>
-                    <Button>Show Answer</Button>
-                    <Button>Next Question</Button>
+                    <Button onClick={showAnswer}>Show Answer</Button>
+                    <Button onClick={nextQuestion}>Next Question</Button>
                 </Buttons>
             </Wrapper>
         </DashboardWrapper>
